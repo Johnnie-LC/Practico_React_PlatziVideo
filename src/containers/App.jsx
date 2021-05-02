@@ -1,12 +1,27 @@
 import React from 'react'
-import '../assets/style/App.scss'
 import Header from '../components/Header'
 import Search from '../components/Search'
+import Categories from '../components/Categories'
+import Carrousel from '../components/Carrousel'
+import CarrouselItem from '../components/CarrouselItem'
+import Footer from '../components/Footer'
+
+import '../assets/style/App.scss'
 
 const App = () => (
-    <React.Fragment className="App">
+    <div className="App">
         <Header />
         <Search />
-    </React.Fragment>
+
+        <Categories>
+            <Carrousel>
+                <CarrouselItem />
+                <CarrouselItem />
+                <CarrouselItem />
+                <CarrouselItem />
+            </Carrousel>
+        </Categories>
+        <Footer />
+    </div>
 )
 export default App
