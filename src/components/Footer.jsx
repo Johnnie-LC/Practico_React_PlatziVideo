@@ -1,7 +1,7 @@
 import React from 'react'
 import '../assets/style/components/Footer.scss'
 
-const footer = () =>{
+const Footer = () =>{
     return (
         <footer className="footer">
             <a href="/">Terminos de uso</a>
@@ -11,4 +11,4 @@ const footer = () =>{
     )
 }
 
-export default footer
+export default Footer
