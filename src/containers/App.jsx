@@ -9,40 +9,36 @@ import Footer from '../components/Footer'
 import '../assets/style/App.scss'
 
 const App = () => {
-    const [videos, setVideos] = useState([])
+    const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] })
     useEffect(() => {
         fetch('http://localhost:3000/initalState')
             .then(response => response.json())
             .then(data => setVideos(data))
     },[])
-
-    console.log(videos)
+console.log(videos, `este es ${videos.trends.length}`)
 
     return(
         <div className="App">
             <Header />
             <Search />
-
-            <Categories title='Mi lista'>
-                <Carrousel>
-                    <CarrouselItem />
-                    <CarrouselItem />
-                    <CarrouselItem />
-                    <CarrouselItem />
-                </Carrousel>
-            </Categories>
-
+            {videos.mylist.length > 0 && 
+                <Categories title='Mi lista'>
+                    <Carrousel>
+                        <CarrouselItem />
+                    </Carrousel>
+                </Categories>
+            }
+        
             <Categories title='Tendencias'>
                 <Carrousel>
-                    <CarrouselItem />
-                    <CarrouselItem />
+                {   videos.trends?.map(item => 
+                    <CarrouselItem key={item.id} {...item}/>) 
+                }
                 </Carrousel>
             </Categories>
 
             <Categories title='Originales de Platzi Videos' >
                 <Carrousel>
-                    <CarrouselItem />
-                    <CarrouselItem />
                     <CarrouselItem />
                 </Carrousel>
             </Categories>
