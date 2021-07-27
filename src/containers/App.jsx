@@ -5,23 +5,23 @@ import Categories from '../components/Categories'
 import Carrousel from '../components/Carrousel'
 import CarrouselItem from '../components/CarrouselItem'
 import Footer from '../components/Footer'
+import useInitialState from '../hooks/useInitialState'
 
 import '../assets/style/App.scss'
 
+const API = 'http://localhost:3000/initalState'
+
 const App = () => {
-    const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] })
-    useEffect(() => {
-        fetch('http://localhost:3000/initalState')
-            .then(response => response.json())
-            .then(data => setVideos(data))
-    },[])
-console.log(videos, `este es ${videos.trends.length}`)
+    
+    const initialState = useInitialState(API)
+
+    console.log(initialState, `este es ${initialState.trends.length}`)
 
     return(
         <div className="App">
             <Header />
             <Search />
-            {videos.mylist.length > 0 && 
+            {initialState.mylist.length > 0 && 
                 <Categories title='Mi lista'>
                     <Carrousel>
                         <CarrouselItem />
@@ -31,19 +31,20 @@ console.log(videos, `este es ${videos.trends.length}`)
         
             <Categories title='Tendencias'>
                 <Carrousel>
-                {   videos.trends?.map(item => 
-                    <CarrouselItem key={item.id} {...item}/>) 
+                {   initialState.trends?.map(item => 
+                        <CarrouselItem key={item.id} {...item}/>) 
                 }
                 </Carrousel>
             </Categories>
 
             <Categories title='Originales de Platzi Videos' >
                 <Carrousel>
-                    <CarrouselItem />
+                    {
+                        initialState.originals?.map(item => 
+                            <CarrouselItem key={item.id} {...item}/>)
+                    }
                 </Carrousel>
-            </Categories>
-            
-            
+            </Categories>            
             <Footer />
         </div>
 )
